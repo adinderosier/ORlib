@@ -1,7 +1,7 @@
 /**
  * @file vector2d.hpp
  * @brief Defines a 2D vector and provides vector operations.
- * @author Adin De'Rosier (adin.derosier@oit.edu)
+ * @author Adin De'Rosier (adinderosier@live.com)
  * @version 0.2
  * @date 2023-09-27
  *
@@ -17,7 +17,7 @@
  * range. No bounds checking is performed.
  *
  * @remark
- * This file is part of the OITRC::misc::math namespace.
+ * This file is part of the ORlib::misc::math namespace.
  */
 
 #ifndef _VECTOR2D_H_
@@ -26,7 +26,7 @@
 #include <array>
 #include <cmath>
 
-namespace OITRC::misc::math
+namespace ORlib::misc::math
 {
 
     /**
