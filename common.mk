@@ -15,7 +15,8 @@ ifneq (,$(wildcard ./include/liblvgl/llemu.hpp))
 	CPPFLAGS += -D_PROS_INCLUDE_LIBLVGL_LLEMU_HPP
 endif
 
-WARNFLAGS+=-Wno-psabi
+C_WARNFLAGS += -Wno-psabi
+CXX_WARNFLAGS += -Wno-psabi -Wno-deprecated-enum-enum-conversion
 
 SPACE := $() $()
 COMMA := ,
@@ -37,9 +38,9 @@ wlprefix=-Wl,$(subst $(SPACE),$(COMMA),$1)
 LNK_FLAGS=--gc-sections --start-group $(strip $(LIBRARIES)) -lgcc -lstdc++ --end-group -T$(FWDIR)/v5-common.ld
 
 ASMFLAGS=$(MFLAGS) $(WARNFLAGS)
-CFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=$(C_STANDARD)
-CXXFLAGS=$(MFLAGS) $(CPPFLAGS) $(WARNFLAGS) $(GCCFLAGS) --std=$(CXX_STANDARD)
-LDFLAGS=$(MFLAGS) $(WARNFLAGS) -nostdlib $(GCCFLAGS)
+CFLAGS = $(MFLAGS) $(CPPFLAGS) $(C_WARNFLAGS) $(GCCFLAGS) --std=$(C_STANDARD)
+CXXFLAGS = $(MFLAGS) $(CPPFLAGS) $(CXX_WARNFLAGS) $(GCCFLAGS) --std=$(CXX_STANDARD)
+LDFLAGS=$(MFLAGS) $(WARNFLAGS) -nostdlib $(GCCFLAGS) -Wl,--no-warn-rwx-segments
 SIZEFLAGS=-d --common
 NUMFMTFLAGS=--to=iec --format %.2f --suffix=B
 
@@ -206,6 +207,7 @@ clean-template:
 	-$Drm -rf $(TEMPLATE_DIR)
 
 $(LIBAR): $(call GETALLOBJ,$(EXCLUDE_SRC_FROM_LIB)) $(EXTRA_LIB_DEPS)
+	@mkdir -p $(dir $@)  # Ensure bin/ directory exists
 	-$Drm -f $@
 	$(call test_output_2,Creating $@ ,$(AR) rcs $@ $^, $(DONE_STRING))
 
