@@ -21,7 +21,7 @@
  * the expected range. No bounds checking is performed.
  *
  * @remark
- * This file is part of the OITRC::misc::math namespace.
+ * This file is part of the ORlib::misc::math namespace.
  *
  * @remark
  * The functions in this file are inline for performance optimization.
@@ -33,9 +33,9 @@
 #include <array>
 #include <cmath>
 
-#include "OITRC-LIB/misc/math/vector2d.hpp"
+#include "ORlib/misc/math/vector2d.hpp"
 
-namespace OITRC::misc::math
+namespace ORlib::misc::math
 {
     /**
      * @brief A small number used for floating point comparison
@@ -195,6 +195,6 @@ namespace OITRC::misc::math
     {
         return std::abs(value.x) > deadband.x || std::abs(value.y) > deadband.y;
     }
-} // namespace OITRC::misc::math
+} // namespace ORlib::misc::math
 
 #endif // _MATH_UTILS_HPP_

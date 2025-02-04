@@ -1,23 +1,12 @@
 /**
  * @file pid_controller.hpp
- * @author Adin De'Rosier (adin.derosier@oit.edu)
+ * @author Adin De'Rosier
  * @brief Header file for the PIDController class.
- * @version 0.2
- * @date 2023-09-27
+ * @version 1.0
+ * @date 2025-02-04
  *
  * This file defines the PIDController class, which implements a
  * Proportional-Integral-Derivative controller.
- *
- * The class provides methods to set the controller constants, calculate
- * the PID output based on the target, current value, and time
- * difference, and reset the controller.
- *
- * The PIDController class supports managing both angle and non-angle
- * targets.
- *
- * The class also includes private member variables to store the
- * controller constants, max and min output values, max accumulated
- * value for the integral term, and previous error and integral values.
  */
 
 #ifndef _PID_CONTROLLER_HPP_
@@ -29,35 +18,33 @@ namespace ORlib::misc::PID
     {
     protected:
         // The PID constants
-        float kP_; 
-        float kI_; 
-        float kD_; 
+        float kP_;
+        float kI_;
+        float kD_;
 
         // The max and min values output
         float kMin_;
         float kMax_;
 
         // The max accumulated value for the I term
-        float kIMax_; 
+        float kIMax_;
 
         // If true, we are managing an angle
-        bool isAngle_; 
+        bool isAngle_;
 
         // If true, we have a last error value
-        bool hasLastError_; 
+        bool hasLastError_;
 
         // The last error
-        float lastError_; 
+        float lastError_;
 
         // The accumulated I term
-        float integral_; 
+        float integral_;
 
-        // The value at which to begin integration
-        float startI_;
-
-        float dOut_; 
-        float iOut_; 
-        float pOut_; 
+        // The output values for the PID controller
+        float dOut_;
+        float iOut_;
+        float pOut_;
 
         // The error values for settling
         float settleError_;
@@ -67,101 +54,76 @@ namespace ORlib::misc::PID
         float timeout_;
 
         /**
-         * @brief Calculates the error between the target and current 
+         * @brief Calculates the error between the target and current
          *        value.
          * @param target Desired target value.
-         * @param current Current value.
+         * @param measured Measured value.
          * @return Error value.
          */
-        float calculateError(float target, float current);
+        float calculateError(const float target, const float measured) const;
 
     public:
         /**
          * @brief Default constructor for the PIDController class.
-         * 
          */
         PIDController();
 
         /**
          * @brief Constructor for the PIDController class.
-         * @param isAngle Flag indicating whether the target is an 
-         *        angle.
          */
-        PIDController(bool isAngle);
-
-        /**
-         * @brief Constructor for the PIDController class.
-         * @param p Proportional constant.
-         * @param i Integral constant.
-         * @param d Derivative constant.
-         * @param minOut Minimum output value.
-         * @param maxOut Maximum output value.
-         * @param maxInt Maximum integral value.
-         * @param isAngle Flag indicating whether the target is an 
-         *        angle.
-         */
-        PIDController(float p, float i, float d, float minOut,
-                      float maxOut, float maxInt, bool isAngle,
-                      float startI, float settleError, float settleTime, 
-                      float timeout);
+        PIDController(const float p, const float i, const float d,
+                      const float minOut = 0.0, const float maxOut = 6.0,
+                      const float maxInt = 0.01, const bool isAngle = false,
+                      const float settleError = 1, const float settleTime = 10,
+                      const float timeout = 5000);
 
         /**
          * @brief Sets the proportional constant.
-         * @param p Proportional constant value.
          */
-        void setP(float p);
+        void setP(const float p);
 
         /**
          * @brief Sets the integral constant.
-         * @param i Integral constant value.
          */
-        void setI(float i);
-
+        void setI(const float i);
 
         /**
          * @brief Sets the derivative constant.
-         * @param d Derivative constant value.
          */
-        void setD(float d);
+        void setD(const float d);
+
+        /**
+         * @brief Sets the constants for the PID controller.
+         */
+        void setConstants(const float p, const float i, const float d);
 
         /**
          * @brief Gets the proportional component of the PID output.
-         * @return Proportional component.
          */
         float getPComponent() const;
 
         /**
          * @brief Gets the integral component of the PID output.
-         * @return Integral component.
          */
         float getIComponent() const;
 
         /**
          * @brief Gets the derivative component of the PID output.
-         * @return Derivative component.
          */
         float getDComponent() const;
 
         /**
-         * @brief Calculates the PID output based on the target, current 
-         *        value, and time difference.
-         * @param target Desired target value.
-         * @param current Current value.
-         * @param dt Time difference (delta time).
-         * @return PID output.
+         * @brief Calculates the PID output.
          */
-        virtual float getOutput(float target, float current, float dt);
+        virtual float getOutput(const float target, const float current, const float dt);
 
         /**
          * @brief Checks if the PID controller has settled.
-         * @return True if the PID controller has settled, false 
-         *         otherwise.
          */
-        virtual bool isSettled();
+        virtual bool isSettled() const;
 
         /**
-         * @brief Resets the PID controller by clearing the error 
-         *        history and integral.
+         * @brief Resets the PID controller.
          */
         void reset();
     };
