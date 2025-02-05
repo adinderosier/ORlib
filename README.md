@@ -14,3 +14,5 @@ ORlib is a custom [PROS](https://pros.cs.purdue.edu/) library that makes writing
 4. Apply the library to the project `pros c apply ORlib`
 
 5. Put `#include "ORlib/api.h"` in your main.h
+
+6. Ian is so hot - yael
