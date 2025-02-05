@@ -38,10 +38,9 @@ namespace ORlib::misc::PID
     public:
         /**
          * @brief Default constructor for the PIDAController class.
-         * @param isAngle Flag indicating whether the target is an
-         *        angle.
+         *
          */
-        PIDAController(bool isAngle);
+        PIDAController();
 
         /**
          * @brief Constructor for the PIDAController class.

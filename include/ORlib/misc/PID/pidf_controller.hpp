@@ -42,13 +42,6 @@ namespace ORlib::misc::PID
 
         /**
          * @brief Constructor for the PIDFController class.
-         * @param isAngle Flag indicating whether the target is an
-         *        angle.
-         */
-        PIDFController(bool isAngle);
-
-        /**
-         * @brief Constructor for the PIDFController class.
          * @param p Proportional constant.
          * @param i Integral constant.
          * @param d Derivative constant.
