@@ -49,6 +49,17 @@ namespace ORlib::misc::math
     }
 
     /**
+     * @brief Converts an angle given in degrees to radians
+     *
+     * @param angle The angle in degrees to be converted
+     * @return float The angle in radians
+     */
+    inline float toRadians(float angle)
+    {
+        return angle * M_PI / 180.0;
+    }
+
+    /**
      * @brief Wraps an angle given in degrees to the range
      *        [0, 360)
      *
