@@ -6,7 +6,7 @@
  * @date 2025-02-04
  *
  * This file defines the PIDController class, which implements a
- * Proportional-Integral-Derivative controller.
+ * Proportional Integral Derivative controller.
  */
 
 #ifndef _PID_CONTROLLER_HPP_
@@ -72,8 +72,8 @@ namespace ORlib::misc::PID
          * @brief Constructor for the PIDController class.
          */
         PIDController(const float p, const float i, const float d,
-                      const float minOut = 0.0, const float maxOut = 6.0,
-                      const float maxInt = 0.01, const bool isAngle = false,
+                      const bool isAngle = false, const float minOut = 0.0, 
+                      const float maxOut = 6.0, const float maxInt = 0.01, 
                       const float settleError = 1, const float settleTime = 10,
                       const float timeout = 5000);
 
@@ -115,7 +115,7 @@ namespace ORlib::misc::PID
         /**
          * @brief Calculates the PID output.
          */
-        virtual float getOutput(const float target, const float current, const float dt);
+        virtual float getOutput(const float target, const float measured, const float dt);
 
         /**
          * @brief Checks if the PID controller has settled.
