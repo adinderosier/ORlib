@@ -1,5 +1,4 @@
 [submodule "src/ORlib"]
 	path = src/ORlib
 	url = https://github.com/adinderosier/ORlib-Source
-[submodule "src/OrLib"]
 	branch = main
