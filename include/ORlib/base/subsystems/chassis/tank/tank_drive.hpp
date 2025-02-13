@@ -88,6 +88,30 @@ namespace ORlib::base::subsystems::chassis::tank
         void tank_drive(float left_voltage, float right_voltage);
         void arcade_drive(float forward_voltage, float turn_voltage);
     };
+
+    class TankDriveWithOTOSOdometry : public Drivetrain
+    {
+    private:
+        pros::v5::MotorGroup *left_motors_;
+        pros::v5::MotorGroup *right_motors_;
+        pros::Imu *imu_;
+
+    public:
+        TankDriveWithOTOSOdometry(pros::v5::MotorGroup &left_motors,
+                                  pros::v5::MotorGroup &right_motors,
+                                  pros::Imu &imu,
+                                  float wheel_diameter, float wheel_ratio) : Drivetrain(wheel_diameter, wheel_ratio),
+                                                                             left_motors_(&left_motors),
+                                                                             right_motors_(&right_motors),
+                                                                             imu_(&imu) {}
+
+        void drive_with_voltage(float left_voltage, float right_voltage);
+        void drive_distance(float distance, float velocity);
+
+        // Driver Control methods
+        void tank_drive(float left_voltage, float right_voltage);
+        void arcade_drive(float forward_voltage, float turn_voltage);
+    };
 }
 
 #endif // _TANK_DRIVE_HPP_
