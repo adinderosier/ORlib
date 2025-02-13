@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Makefile CI on Pull Request
 
     runs-on: ubuntu-latest
 
